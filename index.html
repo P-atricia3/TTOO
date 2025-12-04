@@ -147,15 +147,19 @@ function renderCalendar(ttoo){
   tbl+='</tbody></table>';
   container.innerHTML=tbl;
 
+  // Botón STOP SALES arreglado
   container.querySelectorAll('.stop-btn').forEach(btn=>{
     btn.addEventListener('click', e=>{
-      let input=btn.previousElementSibling;
+      let input = btn.previousElementSibling;
+      const tip = ttooData[ttoo].find(t=>t.code===btn.parentElement.dataset.tip);
       if(btn.classList.contains('active')){
         btn.classList.remove('active');
         input.classList.remove('stop');
-      }else{
+        input.value = tip.cupo; // vuelve al cupo original
+      } else {
         btn.classList.add('active');
         input.classList.add('stop');
+        input.value = 0; // STOP SALES = 0
       }
       saveData(ttoo);
     });
