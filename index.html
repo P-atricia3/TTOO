@@ -84,10 +84,10 @@ const ttooData = {
   ]
 };
 
-// Guardado en tiempo real con localStorage
+// Guardado automático con localStorage
 function saveData(ttoo){
   const rows = document.querySelectorAll(`#${ttoo} tbody tr`);
-  rows.forEach((tr)=>{
+  rows.forEach(tr=>{
     const inputs = tr.querySelectorAll('input');
     const stops = tr.querySelectorAll('.stop-btn');
     inputs.forEach((inp,j)=>{
@@ -147,23 +147,24 @@ function renderCalendar(ttoo){
   tbl+='</tbody></table>';
   container.innerHTML=tbl;
 
-  // Botón STOP SALES arreglado
-container.querySelectorAll('.stop-btn').forEach(btn=>{
-  btn.addEventListener('click', e=>{
-    let input = btn.previousElementSibling;
-    const tip = ttooData[ttoo].find(t=>t.code===btn.parentElement.dataset.tip);
-    if(btn.classList.contains('active')){
-      btn.classList.remove('active');
-      input.classList.remove('stop');
-      input.value = tip.cupo; // vuelve al cupo original
-    } else {
-      btn.classList.add('active');
-      input.classList.add('stop');
-      input.value = 0; // STOP SALES = 0
-    }
-    saveData(ttoo);
+  // STOP SALES funcionando
+  container.querySelectorAll('.stop-btn').forEach(btn=>{
+    btn.addEventListener('click', e=>{
+      let input = btn.previousElementSibling;
+      const tip = ttooData[ttoo].find(t=>t.code===btn.parentElement.dataset.tip);
+      if(btn.classList.contains('active')){
+        btn.classList.remove('active');
+        input.classList.remove('stop');
+        input.value = tip.cupo; // vuelve al cupo original
+      } else {
+        btn.classList.add('active');
+        input.classList.add('stop');
+        input.value = 0; // STOP SALES = 0
+      }
+      saveData(ttoo);
+    });
   });
-});
+
   container.querySelectorAll('input').forEach(inp=>{
     inp.addEventListener('change',()=>saveData(ttoo));
   });
