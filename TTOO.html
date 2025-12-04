@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reservas Hotel</title>
+<style>
+body { font-family: sans-serif; margin:0; padding:0; background:#f5f5f5; }
+header { background:#4a90e2; color:white; padding:1rem; text-align:center; font-size:1.5rem; }
+.tab { display:inline-block; padding:0.5rem 1rem; margin:0.2rem; background:#ddd; cursor:pointer; border-radius:5px; }
+.tab.active { background:#4a90e2; color:white; }
+.calendar { display:none; padding:1rem; overflow-x:auto; }
+table { border-collapse:collapse; width:100%; margin-top:1rem; }
+th, td { border:1px solid #ccc; padding:0.5rem; text-align:center; min-width:60px; }
+td input { width:50px; text-align:center; }
+.stop { background:#ff6b6b; color:white; font-weight:bold; }
+.policy { background:#fff; padding:0.5rem; margin-top:1rem; border-radius:5px; }
+button.stop-btn { padding:0.2rem 0.5rem; margin-left:0.3rem; cursor:pointer; border-radius:3px; }
+#month-nav { margin-top:10px; text-align:center; }
+</style>
+</head>
+<body>
+
+<header>Reservas Hotel</header>
+
+<div id="tabs">
+  <div class="tab active" onclick="showTab('tuiuk')">TUI UK</div>
+  <div class="tab" onclick="showTab('der')">DER</div>
+  <div class="tab" onclick="showTab('tuined')">TUI NED</div>
+  <div class="tab" onclick="showTab('islamar')">Viajes Islamar</div>
+  <div class="tab" onclick="showTab('dercatalina')">DER CATALINA</div>
+</div>
+
+<div id="month-nav">
+  <button onclick="prevMonth()">◀</button>
+  <span id="month-name"></span>
+  <button onclick="nextMonth()">▶</button>
+</div>
+
+<div id="tuiuk" class="calendar"></div>
+<div id="der" class="calendar"></div>
+<div id="tuined" class="calendar"></div>
+<div id="islamar" class="calendar"></div>
+<div id="dercatalina" class="calendar"></div>
+
+<script>
+let currentMonth = 4; // mayo
+let currentYear = new Date().getFullYear();
+const monthNames = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
+
+const ttooData = {
+  tuiuk:[
+    {name:'Standard Sin vistas',code:'TW01',cupo:5},
+    {name:'Standard Vista mar',code:'TW02',cupo:5},
+    {name:'Superior VML Duna',code:'TW03',cupo:2},
+    {name:'Superior VML Village',code:'TW04',cupo:2},
+    {name:'Best Superior VML',code:'TW05',cupo:2}
+  ],
+  der:[
+    {name:'Standard Sin vistas',code:'DB1',cupo:6},
+    {name:'Standard Vista mar',code:'D1M',cupo:5},
+    {name:'Sup. Planta baja',code:'DS1',cupo:3},
+    {name:'Superior VML',code:'D1N',cupo:2},
+    {name:'Superior VML VILLAGE',code:'D2N',cupo:3}
+  ],
+  tuined:[
+    {name:'Standard Sin vistas',code:'DO-01',cupo:2},
+    {name:'Standard Vista mar',code:'DO-02',cupo:2},
+    {name:'Sup. Planta baja',code:'DO-03',cupo:2},
+    {name:'Superior VML',code:'DO-04',cupo:1},
+    {name:'Best Superior VML',code:'DO-06',cupo:3}
+  ],
+  islamar:[
+    {name:'Standard',code:'STD',cupo:3},
+    {name:'Standard vista mar',code:'STDVM',cupo:2},
+    {name:'Sup Planta baja',code:'SUPPB',cupo:1},
+    {name:'Superior vista mar lateral dune side',code:'SUPVMLDS',cupo:1},
+    {name:'Superior vista mar lateral village side',code:'SUPVMLVS',cupo:2},
+    {name:'Best superior vista mar lateral dune side',code:'BESTDS',cupo:2}
+  ],
+  dercatalina:[
+    {name:'Ap. Planta baja 2 hab',code:'OB1',cupo:2},
+    {name:'Ap. Alta 2 hab.',code:'OB2',cupo:3}
+  ]
+};
+
+// Guardado automático con localStorage
+function saveData(ttoo){
+  const rows = document.querySelectorAll(`#${ttoo} tbody tr`);
+  rows.forEach(tr=>{
+    const inputs = tr.querySelectorAll('input');
+    const stops = tr.querySelectorAll('.stop-btn');
+    inputs.forEach((inp,j)=>{
+      localStorage.setItem(`${ttoo}_${tr.dataset.tip}_${currentYear}_${currentMonth}_${j}`, inp.value);
+      localStorage.setItem(`${ttoo}_${tr.dataset.tip}_${currentYear}_${currentMonth}_${j}_stop`, stops[j].classList.contains('active'));
+    });
+  });
+}
+
+function loadData(ttoo){
+  const rows = document.querySelectorAll(`#${ttoo} tbody tr`);
+  rows.forEach(tr=>{
+    const inputs = tr.querySelectorAll('input');
+    const stops = tr.querySelectorAll('.stop-btn');
+    inputs.forEach((inp,j)=>{
+      const key = `${ttoo}_${tr.dataset.tip}_${currentYear}_${currentMonth}_${j}`;
+      if(localStorage.getItem(key) !== null){
+        inp.value = localStorage.getItem(key);
+      }
+      if(localStorage.getItem(key+'_stop')==='true'){
+        stops[j].classList.add('active');
+        inp.classList.add('stop');
+      }
+    });
+  });
+}
+
+function showTab(id){
+  document.querySelectorAll('.calendar').forEach(c=>c.style.display='none');
+  document.getElementById(id).style.display='block';
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelector(`[onclick="showTab('${id}')"]`).classList.add('active');
+  renderCalendar(id);
+}
+
+function prevMonth(){ currentMonth--; if(currentMonth<4){currentMonth=9; currentYear--;} updateCalendars();}
+function nextMonth(){ currentMonth++; if(currentMonth>9){currentMonth=4; currentYear++;} updateCalendars();}
+function updateCalendars(){['tuiuk','der','tuined','islamar','dercatalina'].forEach(id=>renderCalendar(id));}
+
+function renderCalendar(ttoo){
+  const container=document.getElementById(ttoo);
+  container.innerHTML='';
+  document.getElementById('month-name').innerText=monthNames[currentMonth]+' '+currentYear;
+
+  const data=ttooData[ttoo];
+  let tbl='<table><thead><tr><th>Tipología</th>';
+  const days=new Date(currentYear,currentMonth+1,0).getDate();
+  for(let d=1;d<=days;d++) tbl+=`<th>${('0'+d).slice(-2)}/${('0'+(currentMonth+1)).slice(-2)}</th>`;
+  tbl+='</tr></thead><tbody>';
+  data.forEach(tip=>{
+    tbl+=`<tr data-tip="${tip.code}"><td>${tip.name}</td>`;
+    for(let d=1;d<=days;d++){
+      tbl+=`<td><input type="number" value="${tip.cupo}"><button class="stop-btn">S/S</button></td>`;
+    }
+    tbl+='</tr>';
+  });
+  tbl+='</tbody></table>';
+  container.innerHTML=tbl;
+
+  // STOP SALES funcionando
+  container.querySelectorAll('.stop-btn').forEach(btn=>{
+    btn.addEventListener('click', e=>{
+      let input = btn.previousElementSibling;
+      const tip = ttooData[ttoo].find(t=>t.code===btn.parentElement.dataset.tip);
+      if(btn.classList.contains('active')){
+        btn.classList.remove('active');
+        input.classList.remove('stop');
+        input.value = tip.cupo; // vuelve al cupo original
+      } else {
+        btn.classList.add('active');
+        input.classList.add('stop');
+        input.value = 0; // STOP SALES = 0
+      }
+      saveData(ttoo);
+    });
+  });
+
+  container.querySelectorAll('input').forEach(inp=>{
+    inp.addEventListener('change',()=>saveData(ttoo));
+  });
+
+  loadData(ttoo);
+
+  // Políticas
+  let policies='';
+  if(ttoo==='tuiuk'){
+    policies=`<div class="policy"><h4>Descuentos / Booking dates</h4><ul><li>-10% Hasta el 31/12/25</li><li>-5% 01/01/26 - 28/02/26</li><li>Medcon -0,8%</li></ul><h4>Cancelación / Penalización</h4><ul><li>7 to 4 days before arrival → 1a noche</li><li>3 to 1 day before arrival → 3 noches</li><li>No show → 100%</li></ul></div>`;
+  }else if(ttoo==='der'){
+    policies=`<div class="policy"><h4>Descuentos / Booking dates</h4><ul><li>-10% Hasta el 31/03/26 (1/5 al 31/10/26)</li><li>-10% Del 1/4 al 30/6/26 (1/09/26 - 31/10/26)</li></ul><h4>Cancelación / Penalización</h4><ul><li>7 to 4 days before arrival → 1a noche</li><li>3 to 1 day before arrival → 3 noches</li><li>No show → 100%</li></ul></div>`;
+  }else if(ttoo==='tuined'){
+    policies=`<div class="policy"><h4>Descuentos / Booking dates</h4><ul><li>-10% Hasta el 31/12/25</li><li>-5% 01/01/26 - 31/03/26</li><li>-5% 01/04/26 - 30/06/26 (1/9 al 31/10)</li></ul><h4>Cancelación / Penalización</h4><ul><li>7 to 4 days before arrival → 1a noche</li><li>3 to 1 day before arrival → 3 noches</li><li>No show → 100%</li></ul></div>`;
+  }else if(ttoo==='islamar'){
+    policies=`<div class="policy"><h4>Descuentos / Booking dates</h4><ul><li>-10% Hasta el 28/02/26</li><li>-5% 01/03/26 - 31/03/26</li><li>-5% 01/05/26 - 30/09/26 (1/10 al 31/10)</li></ul><h4>Cancelación / Penalización</h4><ul><li>7 to 4 days before arrival → 1a noche</li><li>3 to 1 day before arrival → 3 noches</li><li>No show → 100%</li></ul></div>`;
+  }else if(ttoo==='dercatalina'){
+    policies=`<div class="policy"><h4>Descuentos / Booking dates</h4><ul><li>-10% Hasta el 31/3/26</li></ul><h4>Cancelación / Penalización</h4><ul><li>7 to 4 days before arrival → 1a noche</li><li>3 to 1 day before arrival → 3 noches</li><li>No show → 100%</li></ul></div>`;
+  }
+  container.innerHTML+=policies;
+}
+
+showTab('tuiuk');
+</script>
+
+</body>
+</html>
