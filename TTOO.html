@@ -28,72 +28,77 @@
     <button onclick="showTab('dercatalina')">DER CATALINA</button>
 </div>
 
+<!-- TUI UK -->
 <div id="tuiuk" class="tab">
-    <h2>TUI UK</h2>
-    <table>
-        <tr><th>Tipología</th><th>Cupo</th><th>Stop Sales</th></tr>
-        <tr><td>Standard Sin vistas</td><td><input type="number" value="5" onchange="saveCupo('tuiuk','TW01',this.value)"></td><td><button onclick="toggleStop(this,'tuiuk','TW01')">Stop</button></td></tr>
-        <tr><td>Standard Vista mar</td><td><input type="number" value="5" onchange="saveCupo('tuiuk','TW02',this.value)"></td><td><button onclick="toggleStop(this,'tuiuk','TW02')">Stop</button></td></tr>
-        <tr><td>Superior VML Duna</td><td><input type="number" value="2" onchange="saveCupo('tuiuk','TW03',this.value)"></td><td><button onclick="toggleStop(this,'tuiuk','TW03')">Stop</button></td></tr>
-        <tr><td>Best Superior VML</td><td><input type="number" value="2" onchange="saveCupo('tuiuk','TW05',this.value)"></td><td><button onclick="toggleStop(this,'tuiuk','TW05')">Stop</button></td></tr>
-        <tr><td>Superior VML Village</td><td><input type="number" value="2" onchange="saveCupo('tuiuk','TW04',this.value)"></td><td><button onclick="toggleStop(this,'tuiuk','TW04')">Stop</button></td></tr>
-    </table>
-    <p><strong>Descuentos:</strong> -10% hasta 31/12/25, -5% 01/01/26 - 28/02/26, Medcon -0,8%</p>
-    <p><strong>Cancelaciones:</strong> 7-4 días: 1a noche, 3-1 días: 3 noches, No show: 100%</p>
+<h2>TUI UK</h2>
+<table>
+<tr><th>Tipología</th><th>Cupo</th><th>Stop Sales</th></tr>
+<tr><td>Standard Sin vistas</td><td><input id="tuiuk-TW01-input" type="number" value="5" onchange="saveCupo('tuiuk','TW01',this.value)"></td><td><button id="tuiuk-TW01-btn" onclick="toggleStop('tuiuk','TW01')">Stop</button></td></tr>
+<tr><td>Standard Vista mar</td><td><input id="tuiuk-TW02-input" type="number" value="5" onchange="saveCupo('tuiuk','TW02',this.value)"></td><td><button id="tuiuk-TW02-btn" onclick="toggleStop('tuiuk','TW02')">Stop</button></td></tr>
+<tr><td>Superior VML Duna</td><td><input id="tuiuk-TW03-input" type="number" value="2" onchange="saveCupo('tuiuk','TW03',this.value)"></td><td><button id="tuiuk-TW03-btn" onclick="toggleStop('tuiuk','TW03')">Stop</button></td></tr>
+<tr><td>Best Superior VML</td><td><input id="tuiuk-TW05-input" type="number" value="2" onchange="saveCupo('tuiuk','TW05',this.value)"></td><td><button id="tuiuk-TW05-btn" onclick="toggleStop('tuiuk','TW05')">Stop</button></td></tr>
+<tr><td>Superior VML Village</td><td><input id="tuiuk-TW04-input" type="number" value="2" onchange="saveCupo('tuiuk','TW04',this.value)"></td><td><button id="tuiuk-TW04-btn" onclick="toggleStop('tuiuk','TW04')">Stop</button></td></tr>
+</table>
+<p><strong>Descuentos:</strong> -10% hasta 31/12/25, -5% 01/01/26 - 28/02/26, Medcon -0,8%</p>
+<p><strong>Cancelaciones:</strong> 7-4 días: 1a noche, 3-1 días: 3 noches, No show: 100%</p>
 </div>
 
+<!-- DER -->
 <div id="der" class="tab">
-    <h2>DER</h2>
-    <table>
-        <tr><th>Tipología</th><th>Cupo</th><th>Stop Sales</th></tr>
-        <tr><td>Standard Sin vistas</td><td><input type="number" value="6" onchange="saveCupo('der','DB1',this.value)"></td><td><button onclick="toggleStop(this,'der','DB1')">Stop</button></td></tr>
-        <tr><td>Standard Vista mar</td><td><input type="number" value="5" onchange="saveCupo('der','D1M',this.value)"></td><td><button onclick="toggleStop(this,'der','D1M')">Stop</button></td></tr>
-        <tr><td>Sup. Planta baja</td><td><input type="number" value="3" onchange="saveCupo('der','DS1',this.value)"></td><td><button onclick="toggleStop(this,'der','DS1')">Stop</button></td></tr>
-        <tr><td>Superior VML</td><td><input type="number" value="2" onchange="saveCupo('der','D1N',this.value)"></td><td><button onclick="toggleStop(this,'der','D1N')">Stop</button></td></tr>
-        <tr><td>Superior VML Village</td><td><input type="number" value="3" onchange="saveCupo('der','D2N',this.value)"></td><td><button onclick="toggleStop(this,'der','D2N')">Stop</button></td></tr>
-    </table>
-    <p><strong>Descuentos:</strong> -10% hasta 31/03/26, -10% 01/04 - 30/06, Travel dates: 1/5-31/10 y 1/09-31/10</p>
-    <p><strong>Cancelaciones:</strong> 7-4 días: 1a noche, 3-1 días: 3 noches, No show: 100%</p>
+<h2>DER</h2>
+<table>
+<tr><th>Tipología</th><th>Cupo</th><th>Stop Sales</th></tr>
+<tr><td>Standard Sin vistas</td><td><input id="der-DB1-input" type="number" value="6" onchange="saveCupo('der','DB1',this.value)"></td><td><button id="der-DB1-btn" onclick="toggleStop('der','DB1')">Stop</button></td></tr>
+<tr><td>Standard Vista mar</td><td><input id="der-D1M-input" type="number" value="5" onchange="saveCupo('der','D1M',this.value)"></td><td><button id="der-D1M-btn" onclick="toggleStop('der','D1M')">Stop</button></td></tr>
+<tr><td>Sup. Planta baja</td><td><input id="der-DS1-input" type="number" value="3" onchange="saveCupo('der','DS1',this.value)"></td><td><button id="der-DS1-btn" onclick="toggleStop('der','DS1')">Stop</button></td></tr>
+<tr><td>Superior VML</td><td><input id="der-D1N-input" type="number" value="2" onchange="saveCupo('der','D1N',this.value)"></td><td><button id="der-D1N-btn" onclick="toggleStop('der','D1N')">Stop</button></td></tr>
+<tr><td>Superior VML Village</td><td><input id="der-D2N-input" type="number" value="3" onchange="saveCupo('der','D2N',this.value)"></td><td><button id="der-D2N-btn" onclick="toggleStop('der','D2N')">Stop</button></td></tr>
+</table>
+<p><strong>Descuentos:</strong> -10% hasta 31/03/26, -10% 01/04 - 30/06, Travel dates: 1/5-31/10 y 1/09-31/10</p>
+<p><strong>Cancelaciones:</strong> 7-4 días: 1a noche, 3-1 días: 3 noches, No show: 100%</p>
 </div>
 
+<!-- TUI NED -->
 <div id="tuined" class="tab">
-    <h2>TUI NED</h2>
-    <table>
-        <tr><th>Tipología</th><th>Cupo</th><th>Stop Sales</th></tr>
-        <tr><td>Standard Sin vistas</td><td><input type="number" value="2" onchange="saveCupo('tuined','DO-01',this.value)"></td><td><button onclick="toggleStop(this,'tuined','DO-01')">Stop</button></td></tr>
-        <tr><td>Standard Vista mar</td><td><input type="number" value="2" onchange="saveCupo('tuined','DO-02',this.value)"></td><td><button onclick="toggleStop(this,'tuined','DO-02')">Stop</button></td></tr>
-        <tr><td>Sup. Planta baja</td><td><input type="number" value="2" onchange="saveCupo('tuined','DO-03',this.value)"></td><td><button onclick="toggleStop(this,'tuined','DO-03')">Stop</button></td></tr>
-        <tr><td>Superior VML</td><td><input type="number" value="1" onchange="saveCupo('tuined','DO-04',this.value)"></td><td><button onclick="toggleStop(this,'tuined','DO-04')">Stop</button></td></tr>
-        <tr><td>Best Superior VML</td><td><input type="number" value="3" onchange="saveCupo('tuined','DO-06',this.value)"></td><td><button onclick="toggleStop(this,'tuined','DO-06')">Stop</button></td></tr>
-    </table>
-    <p><strong>Descuentos:</strong> -10% hasta 31/12/25, -5% 01/01/26 - 31/03/26, -5% 01/04 - 30/06, Travel dates: 1/9-31/10</p>
-    <p><strong>Cancelaciones:</strong> 7-4 días: 1a noche, 3-1 días: 3 noches, No show: 100%</p>
+<h2>TUI NED</h2>
+<table>
+<tr><th>Tipología</th><th>Cupo</th><th>Stop Sales</th></tr>
+<tr><td>Standard Sin vistas</td><td><input id="tuined-DO01-input" type="number" value="2" onchange="saveCupo('tuined','DO-01',this.value)"></td><td><button id="tuined-DO01-btn" onclick="toggleStop('tuined','DO-01')">Stop</button></td></tr>
+<tr><td>Standard Vista mar</td><td><input id="tuined-DO02-input" type="number" value="2" onchange="saveCupo('tuined','DO-02',this.value)"></td><td><button id="tuined-DO02-btn" onclick="toggleStop('tuined','DO-02')">Stop</button></td></tr>
+<tr><td>Sup. Planta baja</td><td><input id="tuined-DO03-input" type="number" value="2" onchange="saveCupo('tuined','DO-03',this.value)"></td><td><button id="tuined-DO03-btn" onclick="toggleStop('tuined','DO-03')">Stop</button></td></tr>
+<tr><td>Superior VML</td><td><input id="tuined-DO04-input" type="number" value="1" onchange="saveCupo('tuined','DO-04',this.value)"></td><td><button id="tuined-DO04-btn" onclick="toggleStop('tuined','DO-04')">Stop</button></td></tr>
+<tr><td>Best Superior VML</td><td><input id="tuined-DO06-input" type="number" value="3" onchange="saveCupo('tuined','DO-06',this.value)"></td><td><button id="tuined-DO06-btn" onclick="toggleStop('tuined','DO-06')">Stop</button></td></tr>
+</table>
+<p><strong>Descuentos:</strong> -10% hasta 31/12/25, -5% 01/01/26 - 31/03/26, -5% 01/04 - 30/06, Travel dates: 1/9-31/10</p>
+<p><strong>Cancelaciones:</strong> 7-4 días: 1a noche, 3-1 días: 3 noches, No show: 100%</p>
 </div>
 
+<!-- V. ISLAMAR -->
 <div id="islamar" class="tab">
-    <h2>V. ISLAMAR</h2>
-    <table>
-        <tr><th>Tipología</th><th>Cupo</th><th>Stop Sales</th></tr>
-        <tr><td>Standard</td><td><input type="number" value="3" onchange="saveCupo('islamar','STD',this.value)"></td><td><button onclick="toggleStop(this,'islamar','STD')">Stop</button></td></tr>
-        <tr><td>Standard Vista mar</td><td><input type="number" value="2" onchange="saveCupo('islamar','SV',this.value)"></td><td><button onclick="toggleStop(this,'islamar','SV')">Stop</button></td></tr>
-        <tr><td>Sup. Planta baja</td><td><input type="number" value="1" onchange="saveCupo('islamar','SPB',this.value)"></td><td><button onclick="toggleStop(this,'islamar','SPB')">Stop</button></td></tr>
-        <tr><td>Superior Vista mar lateral dune side</td><td><input type="number" value="1" onchange="saveCupo('islamar','SVLD',this.value)"></td><td><button onclick="toggleStop(this,'islamar','SVLD')">Stop</button></td></tr>
-        <tr><td>Superior Vista mar lateral village side</td><td><input type="number" value="2" onchange="saveCupo('islamar','SVLV',this.value)"></td><td><button onclick="toggleStop(this,'islamar','SVLV')">Stop</button></td></tr>
-        <tr><td>Best Superior Vista mar lateral dune side</td><td><input type="number" value="2" onchange="saveCupo('islamar','BSVLD',this.value)"></td><td><button onclick="toggleStop(this,'islamar','BSVLD')">Stop</button></td></tr>
-    </table>
-    <p><strong>Descuentos:</strong> -10% hasta 28/02/26, -5% 01/03-31/03, -5% 01/05-30/09, Travel dates: 1/10-31/10</p>
-    <p><strong>Cancelaciones:</strong> 7-4 días: 1a noche, 3-1 días: 3 noches, No show: 100%</p>
+<h2>V. ISLAMAR</h2>
+<table>
+<tr><th>Tipología</th><th>Cupo</th><th>Stop Sales</th></tr>
+<tr><td>Standard</td><td><input id="islamar-STD-input" type="number" value="3" onchange="saveCupo('islamar','STD',this.value)"></td><td><button id="islamar-STD-btn" onclick="toggleStop('islamar','STD')">Stop</button></td></tr>
+<tr><td>Standard Vista mar</td><td><input id="islamar-SV-input" type="number" value="2" onchange="saveCupo('islamar','SV',this.value)"></td><td><button id="islamar-SV-btn" onclick="toggleStop('islamar','SV')">Stop</button></td></tr>
+<tr><td>Sup. Planta baja</td><td><input id="islamar-SPB-input" type="number" value="1" onchange="saveCupo('islamar','SPB',this.value)"></td><td><button id="islamar-SPB-btn" onclick="toggleStop('islamar','SPB')">Stop</button></td></tr>
+<tr><td>Superior Vista mar lateral dune side</td><td><input id="islamar-SVLD-input" type="number" value="1" onchange="saveCupo('islamar','SVLD',this.value)"></td><td><button id="islamar-SVLD-btn" onclick="toggleStop('islamar','SVLD')">Stop</button></td></tr>
+<tr><td>Superior Vista mar lateral village side</td><td><input id="islamar-SVLV-input" type="number" value="2" onchange="saveCupo('islamar','SVLV',this.value)"></td><td><button id="islamar-SVLV-btn" onclick="toggleStop('islamar','SVLV')">Stop</button></td></tr>
+<tr><td>Best Superior Vista mar lateral dune side</td><td><input id="islamar-BSVLD-input" type="number" value="2" onchange="saveCupo('islamar','BSVLD',this.value)"></td><td><button id="islamar-BSVLD-btn" onclick="toggleStop('islamar','BSVLD')">Stop</button></td></tr>
+</table>
+<p><strong>Descuentos:</strong> -10% hasta 28/02/26, -5% 01/03-31/03, -5% 01/05-30/09, Travel dates: 1/10-31/10</p>
+<p><strong>Cancelaciones:</strong> 7-4 días: 1a noche, 3-1 días: 3 noches, No show: 100%</p>
 </div>
 
+<!-- DER CATALINA -->
 <div id="dercatalina" class="tab">
-    <h2>DER CATALINA</h2>
-    <table>
-        <tr><th>Tipología</th><th>Cupo</th><th>Stop Sales</th></tr>
-        <tr><td>Ap. Planta baja 2 hab</td><td><input type="number" value="2" onchange="saveCupo('dercatalina','OB1',this.value)"></td><td><button onclick="toggleStop(this,'dercatalina','OB1')">Stop</button></td></tr>
-        <tr><td>Ap. Alta 2 hab.</td><td><input type="number" value="3" onchange="saveCupo('dercatalina','OB2',this.value)"></td><td><button onclick="toggleStop(this,'dercatalina','OB2')">Stop</button></td></tr>
-    </table>
-    <p><strong>Descuentos:</strong> -10% hasta 31/03/26</p>
-    <p><strong>Cancelaciones:</strong> 7-4 días: 1a noche, 3-1 días: 3 noches, No show: 100%</p>
+<h2>DER CATALINA</h2>
+<table>
+<tr><th>Tipología</th><th>Cupo</th><th>Stop Sales</th></tr>
+<tr><td>Ap. Planta baja 2 hab</td><td><input id="dercatalina-OB1-input" type="number" value="2" onchange="saveCupo('dercatalina','OB1',this.value)"></td><td><button id="dercatalina-OB1-btn" onclick="toggleStop('dercatalina','OB1')">Stop</button></td></tr>
+<tr><td>Ap. Alta 2 hab.</td><td><input id="dercatalina-OB2-input" type="number" value="3" onchange="saveCupo('dercatalina','OB2',this.value)"></td><td><button id="dercatalina-OB2-btn" onclick="toggleStop('dercatalina','OB2')">Stop</button></td></tr>
+</table>
+<p><strong>Descuentos:</strong> -10% hasta 31/03/26</p>
+<p><strong>Cancelaciones:</strong> 7-4 días: 1a noche, 3-1 días: 3 noches, No show: 100%</p>
 </div>
 
 <script>
@@ -113,11 +118,12 @@ function saveCupo(tt, code, value){
     localStorage.setItem('cupoData', JSON.stringify(data));
 }
 
-function toggleStop(btn, tt, code){
+function toggleStop(tt, code){
     let data = JSON.parse(localStorage.getItem('cupoData') || '{}');
     if(!data[tt]) data[tt] = {};
     data[tt][code] = data[tt][code] || {};
     data[tt][code].stop = !data[tt][code].stop;
+    let btn = document.getElementById(tt+'-'+code+'-btn');
     if(data[tt][code].stop){
         btn.classList.add('stop');
     } else {
@@ -131,10 +137,10 @@ window.onload = function(){
     let data = JSON.parse(localStorage.getItem('cupoData') || '{}');
     for(let tt in data){
         for(let code in data[tt]){
-            let rowBtn = document.querySelector(`button[onclick*="${tt}","${code}"]`);
-            let rowInput = document.querySelector(`input[onchange*="${tt}","${code}"]`);
-            if(data[tt][code].stop && rowBtn) rowBtn.classList.add('stop');
-            if(data[tt][code].cupo && rowInput) rowInput.value = data[tt][code].cupo;
+            let btn = document.getElementById(tt+'-'+code+'-btn');
+            let input = document.getElementById(tt+'-'+code+'-input');
+            if(btn && data[tt][code].stop) btn.classList.add('stop');
+            if(input && data[tt][code].cupo) input.value = data[tt][code].cupo;
         }
     }
 }
